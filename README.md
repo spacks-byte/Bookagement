@@ -92,7 +92,7 @@ FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 ```
 
-```mermaidjs
+```mermaid
 flowchart TD
 subgraph Homepage After Login:
     A([Start]) --> B[/Display Options/]
