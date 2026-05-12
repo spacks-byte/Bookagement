@@ -23,6 +23,31 @@ A flask web app for domestic book management
 5. The program should be able to suggest unread books from within the users catalogue based on the previously read books and the user rating of those books.
 6. The program should have a second suggestions tab which suggests new books for the user to buy based on the previously read books and the user rating of those books.
 
+```mermaid
+flowchart TD
+subgraph Homepage After Login:
+    A([Start]) --> B[/Display Options/]
+    A --> C[/Display Book Suggestions/]
+end
+
+B -->|Add Book| D[/Input ISBN/]
+D -->|Automatic| G[[Fetch Data From ISBN API]]
+G --> H[(Save fetched data into SQL database)]
+D -->|Manual| I[/Display UI for manual input of data/]
+I --> H
+
+
+B -->|Search Book| E[/Input Title/Author/]
+E --> F[(Fetch data from the database)]
+F --> J[/Display books or error/]
+
+B -->|Borrowed Books| K[(Fetch data from the database)]
+K --> L[/Display books or error/]
+
+B -->|Wishlisted Books| M[(Fetch data from the database)]
+M --> N[/Display books or error/]
+```
+
 # SQL Commands?
 Generate UML diagram for class relationship from this schema
 ```sql
@@ -90,29 +115,4 @@ cover_art TEXT NOT NULL,
 PRIMARY KEY (wish_id)
 FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
-```
-
-```mermaid
-flowchart TD
-subgraph Homepage After Login:
-    A([Start]) --> B[/Display Options/]
-    A --> C[/Display Book Suggestions/]
-end
-
-B -->|Add Book| D[/Input ISBN/]
-D -->|Automatic| G[[Fetch Data From ISBN API]]
-G --> H[(Save fetched data into SQL database)]
-D -->|Manual| I[/Display UI for manual input of data/]
-I --> H
-
-
-B -->|Search Book| E[/Input Title/Author/]
-E --> F[(Fetch data from the database)]
-F --> J[/Display books or error/]
-
-B -->|Borrowed Books| K[(Fetch data from the database)]
-K --> L[/Display books or error/]
-
-B -->|Wishlisted Books| M[(Fetch data from the database)]
-M --> N[/Display books or error/]
 ```
